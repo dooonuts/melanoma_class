@@ -5,6 +5,7 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     """Template for home of webpage
@@ -13,11 +14,16 @@ def home():
 
     return render_template('home.html')
 
+
 @app.route('/image_data', methods=['POST'])
 def image_data():
     if(request.is_json):
         content = request.get_json()
-    return 'content'
+        print(content)
+    index = controller.store_image(content)
+    print(index)
+    return json.dumps(index)
+
 
 @app.route('/image/<image_index>', methods=['GET'])
 def image_index(image_index):
