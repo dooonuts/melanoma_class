@@ -21,7 +21,6 @@ def image_data():
 
 @app.route('/image/<image_index>', methods=['GET'])
 def image_index(image_index):
-
     return image_index
 
 
