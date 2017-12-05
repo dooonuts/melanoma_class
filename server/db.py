@@ -2,9 +2,17 @@
 #from pymodm import MongoModel, fields
 import datetime
 from pymongo import MongoClient
+from pymodm  import MongoModel, fields
 
 client = MongoClient("mongodb://vcm-1915.vm.duke.edu:27017")
 db = client.bme590
+
+class User(MongoModel):
+	patient_name = fields.CharField()
+	user_id      = fields.CharField()
+	object_id    = fields.ObjectIdField()
+	password     = fields.CharField()
+	
 
 def insert(content):
 	# db = connect("mongodb://vcm-1915.vm.duke.edu:27017/bme590")
