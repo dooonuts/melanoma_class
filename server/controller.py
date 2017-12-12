@@ -1,6 +1,7 @@
 import database
 import numpy as np
 import time
+import base64
 import tensorflow as tf
 from tensorflow_for_poets.scripts import label_image
 
@@ -8,6 +9,18 @@ def store_image(content):
     image_index = database(content)
     image_index = 1;
     return image_index
+
+def convert_image(filename):
+    image = open(filename,'rb')
+    image_read = image.read()
+    image_64_encode = base64.encodestring(image_read)
+    print(image_64_encode)
+    return image_64_encode
+
+def decode_image(image_64_encode):
+    image_decoded = base64.decodestring(image_64_encode)
+    image_results = open('labeled_image.jpg','wb')
+    image_results.write(image_decoded)
 
 def label():
     labels = label_image.load_labels("retrained_labels.txt")
@@ -18,7 +31,7 @@ def graph():
     retrained_graph = label_image.load_graph("retrained_graph.pb")
     return retrained_graph
 
-def retrain(graph):
+def retrain(graph): # develop this later
     graph = label_image.load_graph("retrained_graph.pb")
 
 def labeling(file_name):
@@ -63,4 +76,7 @@ def labeling(file_name):
 
 
 if __name__ == '__main__':
-    [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
+    converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
+    decode_image(converted_image)
+    # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
+    [labels, results] = labeling("labeled_image.jpg")
