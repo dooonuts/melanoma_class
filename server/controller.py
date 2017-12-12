@@ -1,4 +1,4 @@
-import db
+import database
 
 def store_image(content):
     image_index = db(content)
