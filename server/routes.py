@@ -1,6 +1,7 @@
 import sys
 import json
 import controller
+import numpy as np
 from flask import Flask, request, render_template
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -28,10 +29,8 @@ def image():
 def upload():
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
-        return filename
-    return render_template('upload.html')
-
-
+        [classification, probabilities] = controller.labeling("label_img/" + filename)
+        return classification
 
 @app.route('/image_data', methods=['POST'])
 def image_data():

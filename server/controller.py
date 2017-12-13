@@ -67,16 +67,20 @@ def labeling(file_name):
     for i in top_k:
         print(labels[i], results[i])
 
+    finallabel = None
+
     if (results[0] > results[1]):
-        print(labels[0])
+        # print(labels[0])
+        finallabel = labels[0]
     else:
         print(labels[1])
+        finallabel = labels[1]
 
-    return labels, results
+    return finallabel, results
 
 
 if __name__ == '__main__':
-    converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    decode_image(converted_image)
+    # converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
+    # decode_image(converted_image)
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    [labels, results] = labeling("labeled_image.jpg")
+    [finallabel, results] = labeling("labeled_image.jpg")
