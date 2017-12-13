@@ -20,7 +20,7 @@ def login():
        :rtype: home template on html
     """
 
-    return render_template('login.html')
+    return render_template('homepage.html')
 
 @app.route('/login_verification', methods= ['GET','POST'])
 def login_verification():
