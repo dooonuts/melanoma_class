@@ -16,6 +16,7 @@ configure_uploads(app, photos)
 @app.route('/')
 def home():
     """Template for home of webpage
+       
        :rtype: home template on html
     """
 
@@ -34,6 +35,11 @@ def upload():
 
 @app.route('/image_data', methods=['POST'])
 def image_data():
+    """Routing that will post the image data
+
+       :rtype: the index of the image
+    """
+
     if(request.is_json):
         content = request.get_json()
         print(content)
@@ -44,6 +50,13 @@ def image_data():
 
 @app.route('/image/<image_index>', methods=['GET'])
 def image_index(image_index):
+    """Routing to get the image index???
+
+       :param image_index: image of the index
+       :rtype: the index image???
+       Daniel pls help
+    """
+
     return image_index
 
 
