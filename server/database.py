@@ -50,6 +50,12 @@ def change_params(name, param, value):
         user.dimension2 = value
         user.save()
 
+def ret_data(unique_id):
+     user = User.objects.get({'unique_id':unique_id})
+     ret_dict = {'Name':user.patient_name, 'User_id':user.user_id, \
+                 'password':user.password, 'dimension1':user.dimension1, \
+                 'dimension2':user.dimension2, 'classification':user.classification}
+     return ret_dict
 
 #if __name__ == '__main__':
 #    insert(12345, 'Daniel Wu', 'dwu', 'ilikebunnies', '1200', '1080', '0.95')
