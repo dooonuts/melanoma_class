@@ -6,11 +6,23 @@ import tensorflow as tf
 from tensorflow_for_poets.scripts import label_image
 
 def store_image(content):
+    """Function to store image
+
+       :param content: the content of the imge to store
+       :rtype: the image of the index
+    """
+
     image_index = database(content)
     image_index = 1;
     return image_index
 
 def convert_image(filename):
+    """Function to convert the image
+
+       :param filename: the name of the file to open
+       :rtype: returning the base64 encodement
+    """
+
     image = open(filename,'rb')
     image_read = image.read()
     image_64_encode = base64.encodestring(image_read)
@@ -18,23 +30,52 @@ def convert_image(filename):
     return image_64_encode
 
 def decode_image(image_64_encode):
+    """Function to decode the image
+
+       :param image_64_encode: the encoded image
+    """
+
     image_decoded = base64.decodestring(image_64_encode)
     image_results = open('labeled_image.jpg','wb')
     image_results.write(image_decoded)
 
 def label():
+    """Function to load the labels
+
+       :param None:
+       :rtype: returns the labeling
+    """
+
     labels = label_image.load_labels("retrained_labels.txt")
     print(labels)
     return labels
 
 def graph():
+    """Function to get the graph
+
+       :param None:
+       :rtype: the graph 
+    """
+
     retrained_graph = label_image.load_graph("retrained_graph.pb")
     return retrained_graph
 
 def retrain(graph): # develop this later
+    """Function to train the graph
+
+       :param graph: the graph made in the previous fun
+    """
+
     graph = label_image.load_graph("retrained_graph.pb")
 
 def labeling(file_name):
+    """Function to label images
+
+       :param file_name: name of the file to open and halp label
+       :rtype: labeling and results, the labels and results the 
+               Daniel what this???
+    """
+
     graph = label_image.load_graph("retrained_graph.pb")
     input_height = 224
     input_width = 224
