@@ -20,7 +20,7 @@ def login():
        :rtype: home template on html
     """
 
-    return render_template('homepage.html')
+    return render_template('login.html')
 
 @app.route('/login_verification', methods= ['GET','POST'])
 def login_verification():
@@ -32,14 +32,25 @@ def login_verification():
 
 @app.route('/image', methods = ['GET','POST'])
 def image():
-    return render_template('image.html')
+    return render_template('upload.html')
 
 @app.route('/image/image_upload', methods=['GET','POST'])
 def upload():
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        date = request.form['date']
+        print(firstname)
+        print(lastname)
+        print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
         return classification
+
+
+@app.route('/home', methods = ['GET'])
+def home():
+    return render_template('homepage.html')
 
 @app.route('/image_data', methods=['POST'])
 def image_data():
