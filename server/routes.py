@@ -14,13 +14,21 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'label_img'
 configure_uploads(app, photos)
 
 @app.route('/')
-def home():
+def login():
     """Template for home of webpage
-       
+
        :rtype: home template on html
     """
 
-    return render_template('home.html')
+    return render_template('login.html')
+
+@app.route('/login_verification', methods= ['GET','POST'])
+def login_verification():
+    username = request.form['username']
+    password = request.form['password']
+    print(username)
+    print(password)
+    return json.dumps(password)
 
 @app.route('/image', methods = ['GET','POST'])
 def image():
