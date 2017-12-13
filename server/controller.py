@@ -11,7 +11,6 @@ def store_image(content):
        :param content: the content of the imge to store
        :rtype: the image of the index
     """
-
     image_index = database(content)
     image_index = 1;
     return image_index
@@ -22,7 +21,6 @@ def convert_image(filename):
        :param filename: the name of the file to open
        :rtype: returning the base64 encodement
     """
-
     image = open(filename,'rb')
     image_read = image.read()
     image_64_encode = base64.encodestring(image_read)
@@ -75,7 +73,16 @@ def labeling(file_name):
        :rtype: labeling and results, the labels and results the 
                Daniel what this???
     """
+    
+    graph = label_image.load_graph("retrained_graph.pb")
 
+def labeling(file_name):
+    """Function to label image
+  
+       :param file_name: Name of file
+       :rtype: DANIEL WHAT THIS
+    """
+    
     graph = label_image.load_graph("retrained_graph.pb")
     input_height = 224
     input_width = 224
@@ -108,16 +115,21 @@ def labeling(file_name):
     for i in top_k:
         print(labels[i], results[i])
 
+    finallabel = None
+
     if (results[0] > results[1]):
-        print(labels[0])
+        # print(labels[0])
+        finallabel = labels[0]
     else:
         print(labels[1])
+        finallabel = labels[1]
 
-    return labels, results
+    return finallabel, results
 
 
 if __name__ == '__main__':
-    converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    decode_image(converted_image)
+    # converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
+    # decode_image(converted_image)
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    [labels, results] = labeling("labeled_image.jpg")
+    [finallabel, results] = labeling("labeled_image.jpg")
+
