@@ -1,10 +1,17 @@
 import sys
 import json
 import controller
+import numpy as np
 from flask import Flask, request, render_template
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+# app = Flask(__name__)
 
 app = Flask(__name__)
+photos = UploadSet('photos', IMAGES)
 
+app.config['UPLOADED_PHOTOS_DEST'] = 'label_img'
+configure_uploads(app, photos)
 
 @app.route('/')
 def home():
@@ -14,6 +21,16 @@ def home():
 
     return render_template('home.html')
 
+@app.route('/image', methods = ['GET','POST'])
+def image():
+    return render_template('image.html')
+
+@app.route('/image/image_upload', methods=['GET','POST'])
+def upload():
+    if request.method == 'POST' and 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        [classification, probabilities] = controller.labeling("label_img/" + filename)
+        return classification
 
 @app.route('/image_data', methods=['POST'])
 def image_data():
