@@ -49,8 +49,12 @@ def store_image(
 
     return unique_id, user_id, password
 
+def get_patient(patient_name):
+    patient = databaseUser.User()
+    patient_dict = patient.get_user_by_name()
 
-def get_images(doctor_id):
+
+def get_patients(doctor_id):
     doctor = databaseDoctor.Doctor()
     patient_names = doctor.get_patient_names(doctor_id)
     patient_dicts = []
@@ -177,7 +181,7 @@ def labeling(file_name):
 
 
 if __name__ == '__main__':
-    print(get_images("ilikebunnies"))
+    print(get_patients("iruvdonuts"))
     # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")

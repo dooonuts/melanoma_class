@@ -97,6 +97,25 @@ class User(MongoModel):
             user.dimension2 = value
             user.save()
 
+    def get_user_by_name(self, patient_name):
+        """Function to get the user by giving the user id
+
+            :param user_id(string): the user_id for each entry
+            :rtype: returns a dicitonary with all of the information
+        """
+
+        user = User.objects.get({'patient_name': patient_name})
+        ret_dict = {
+            'name': user.patient_name,
+            'unique_id': user.unique_id,
+            'password': user.password,
+            'dimension1': user.dimension1,
+            'dimension2': user.dimension2,
+            'classification': user.classification,
+            'image_content': user.image_content,
+            'date/time': user.date}
+        return ret_dict
+
     def get_user_by_unique_ID(self, unique_id):
         """Function to print out the data after giving unique id
 
