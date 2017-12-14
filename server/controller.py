@@ -1,15 +1,19 @@
 import databaseUser
 import string
-# import databaseDoctor
+import databaseDoctor
 import numpy as np
 import time
 import base64
 from random import *
 import tensorflow as tf
 from PIL import Image
+from pymongo import MongoClient
 from tensorflow_for_poets.scripts import label_image
 
-def store_image(filename, first_name, last_name, classification, date):
+client = MongoClient("mongodb://vcm-1915.vm.duke.edu:27017")
+db = client.bme590
+
+def store_image(doctor_id, filename, first_name, last_name, classification, date):
     """Function to store image for a specific patient, returns a specific username and password for the patient
         NOTE: Currently only accepts one patient per image, duplicate images for the
         same patient will be stored as separate entities
@@ -20,13 +24,27 @@ def store_image(filename, first_name, last_name, classification, date):
     print("Storing Image")
     width = None
     height = None
-    image_64_encoded= convert_image(filename)
+    # image_64_encoded= convert_image(filename)
     with Image.open(filename) as img:
         width, height = img.size
     [user_id, password] = userid_password_generator()
     fullname = first_name + " " + last_name
-    image_index = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
-    return image_index
+    user = databaseUser.User()
+    doctor = databaseDoctor.Doctor()
+    unique_id = user.insert(filename, fullname, user_id, password, width, height, classification, date)
+    doctor.add_patient_names(unique_id,doctor_id)
+
+    return unique_id, user_id, password
+
+def get_images(doctor_id):
+    doctor= databaseDoctor.Doctor()
+    patient_names = doctor.get_patient_names(doctor_id)
+    for p in range(len(patient_names)):
+        patient = databaseUser.User()
+        patient_dict = patient.get_user_by_unique_ID(patient_names[p])
+
+def flush_images():
+    return
 
 def convert_image(filename):
     """Function to convert the image
@@ -37,17 +55,17 @@ def convert_image(filename):
     image = open(filename,'rb')
     image_read = image.read()
     image_64_encode = base64.encodestring(image_read)
-    # print(image_64_encode)
     return image_64_encode
 
-def decode_image(image_64_encode):
+def decode_image(image_64_encode,filename):
     """Function to decode the image
 
        :param image_64_encode: the encoded image
     """
-
-    image_decoded = base64.decodestring(image_64_encode)
-    image_results = open('labeled_image.jpg','wb')
+    print(image_64_encode)
+    image_decoded = base64.decodebytes(image_64_encode)
+    # image_decoded = base64.decodestring(image_64_encode)
+    image_results = open(filename,"w+b")
     image_results.write(image_decoded)
 
 def userid_password_generator():
@@ -117,8 +135,8 @@ def labeling(file_name):
     return finallabel, results
 
 if __name__ == '__main__':
-    # converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    [user_id, password]=userid_password_generator()
+    print("Hello")
+    # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")
-
+    # get_images('ilikebunnies')
