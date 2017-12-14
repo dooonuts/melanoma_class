@@ -31,7 +31,7 @@ def login():
 
 @app.route('/home', methods = ['GET'])
 def home():
-    return render_template('homepage.html')
+    return render_template("homepage.html",username=session['username'])
 
 @app.route('/image', methods = ['GET','POST'])
 def image():
@@ -48,7 +48,7 @@ def upload():
         print(lastname)
         print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
-        return render_template('results.html')
+        return render_template('results.html',classification=classification,probabilities=probabilities)
 
 @app.route('/image_base64', methods=['POST'])
 def image_data():
