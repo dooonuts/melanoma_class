@@ -31,8 +31,12 @@ def login():
     if request.method == 'POST':
         user_id = request.form['user_id']
         password = request.form['password']
-        session['user_id'] = request.form['user_id']
-        return redirect(url_for('home'))
+        logged_in = controller.check_users(user_id, password)
+        if(logged_in):
+            session['user_id'] = request.form['user_id']
+            return redirect(url_for('home'))
+        else:
+            render_template('login.html')
     return render_template('login.html')
 
 @app.route('/home', methods = ['GET'])

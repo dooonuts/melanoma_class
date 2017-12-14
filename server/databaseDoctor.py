@@ -47,6 +47,10 @@ class Doctor(MongoModel):
         list_names = doctor.patient_names
         return list_names
 
+    def get_doctor_by_doctor_id(self, doctor_id):
+        doctor = Doctor.objects.get({'user_id':doctor_id})
+        return doctor
+
     def delete_patient_names(self, patients, name):
         """Function to delete patient name from doctor list
 

@@ -39,9 +39,23 @@ def store_image(doctor_id, filename, first_name, last_name, classification, date
 def get_images(doctor_id):
     doctor= databaseDoctor.Doctor()
     patient_names = doctor.get_patient_names(doctor_id)
+    patient_dicts = []
     for p in range(len(patient_names)):
         patient = databaseUser.User()
         patient_dict = patient.get_user_by_unique_ID(patient_names[p])
+        patient_dicts.append(patient_dict)
+    return patient_dicts
+
+def check_users(user_id, password):
+    doctor = databaseDoctor.Doctor()
+    try:
+        doctor_info = doctor.get_doctor_by_doctor_id(user_id)
+        if doctor_info.password == password:
+            return True
+        else:
+            return False
+    except:
+        return False
 
 def flush_images():
     return
@@ -135,8 +149,8 @@ def labeling(file_name):
     return finallabel, results
 
 if __name__ == '__main__':
-    print("Hello")
+    # print("Hello")
     # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")
-    # get_images('ilikebunnies')
+    check_users('ilikebunnies2','stuff')
