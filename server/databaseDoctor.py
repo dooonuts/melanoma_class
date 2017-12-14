@@ -12,12 +12,12 @@ class Doctor(MongoModel):
        Based off of the Mongo Model
 
     """
-    patient_names = fields.ListField()
+    patient_names = fields.ListField(blank=True)
     doctor_name   = fields.CharField()
     user_id       = fields.CharField()
     password      = fields.CharField()
 
-    def add_doctor(self, patients, name, user_id, password):
+    def add_doctor(self, name, user_id, password):
         """Function to add a doctor to the database
 
             :param patients: list of patients the doctor has
@@ -27,7 +27,7 @@ class Doctor(MongoModel):
             :rtype: none
         """
 
-        doctor = Doctor(patients, name, user_id, password).save()
+        doctor = Doctor(list(), name, user_id, password).save()
 
     def add_patient_names(self,patients, doctor_id):
         """Function to add patients to the doctor

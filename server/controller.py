@@ -57,7 +57,9 @@ def check_users(user_id, password):
     except:
         return False
 
-def flush_images():
+def add_doctor(doctor_name, user_id, password):
+    doctor = databaseDoctor.Doctor()
+    doctor.add_doctor(doctor_name,user_id,password)
     return
 
 def convert_image(filename):

@@ -40,9 +40,17 @@ def login():
             flash('Invalid Username or Password')
     return render_template('login.html')
 
-@app.route('/register_user')
+@app.route('/register_user', methods= ['GET', 'POST'])
 def register_user():
-    return render_template('register_user.html')
+    if request.method == 'GET':
+        return render_template('register_user.html')
+    if request.method == 'POST' and request.form['doctor_name'] == '' or request.form['user_id'] == '' or request.form['password']== '':
+        return render_template('register_user.html')
+    doctor_name = request.form['doctor_name']
+    user_id = request.form['user_id']
+    password = request.form['password']
+    controller.add_doctor(doctor_name, user_id, password)
+    return redirect(url_for('login'))
 
 @app.route('/home', methods = ['GET'])
 def home():
@@ -106,7 +114,8 @@ def image_index(image_index):
     return image_index
 
 @app.route('/image_data')
-def images_Data():
+def images_data():
+
     return render_template('image_data.html')
 
 @app.route('/patients', methods = ['GET'])
