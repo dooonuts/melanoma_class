@@ -78,7 +78,7 @@ def change_params(name, param, value):
         user.dimension2 = value
         user.save()
 
-def ret_data(unique_id):
+def ret_uniqueid(unique_id):
      """Function to print out the data after giving unique id
 
         :param unique_id(int): the unique digit for each entry
@@ -86,11 +86,25 @@ def ret_data(unique_id):
      """
 
      user = User.objects.get({'unique_id':unique_id})
-     ret_dict = {'Name':user.patient_name, 'User_id':user.user_id, \
+     ret_dict = {'name':user.patient_name, 'user_id':user.user_id, \
                  'password':user.password, 'dimension1':user.dimension1, \
                  'dimension2':user.dimension2, 'classification':user.classification}
      return ret_dict
 
-#if __name__ == '__main__':
+def getUserByUserID(user_id):
+    """Function to get the user by giving the user id
+
+        :param user_id(string): the user_id for each entry
+        :rtype: returns a dicitonary with all of the information
+    """
+
+    user = User.objects.get({'user_id':user_id})
+    ret_dict = {'name': user.patient_name, 'user_id': user.user_id, \
+                'password': user.password, 'dimension1': user.dimension1, \
+                'dimension2': user.dimension2, 'classification': user.classification}
+    return ret_dict
+
+if __name__ == '__main__':
 #    insert(12345, 'Daniel Wu', 'dwu', 'ilikebunnies', '1200', '1080', '0.95')
 #    change_params('Daniel Wu', 'user id', 'dwu<3')
+    getUserByUserID("dwu<3")

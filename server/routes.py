@@ -22,10 +22,11 @@ def login():
 
        :rtype: home template on html
     """
+    session.clear()
     if request.method == 'POST':
-        session['username'] = request.form['username']
-        print(request.form['username'])
-        print(request.form['password'])
+        user_id = request.form['user_id']
+        password = request.form['password']
+        session['user_id'] = request.form['user_id']
         return redirect(url_for('home'))
     return render_template('login.html')
 
@@ -44,9 +45,6 @@ def upload():
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         date = request.form['date']
-        print(firstname)
-        print(lastname)
-        print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
         return render_template('results.html')
 
@@ -83,7 +81,7 @@ def patients():
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    session.pop('username',None)
+    session.pop('user_id',None)
     return redirect(url_for('login'))
 
 if __name__ == '__main__':

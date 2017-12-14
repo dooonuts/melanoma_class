@@ -1,4 +1,5 @@
-import database
+import databasePatient
+import databaseDoctor
 import numpy as np
 import time
 import base64
