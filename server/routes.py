@@ -3,7 +3,7 @@ import os
 import json
 import controller
 import numpy as np
-from flask import Flask, request, render_template, session, redirect, url_for
+from flask import Flask, request, render_template, session, redirect, url_for, flash
 from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -11,10 +11,15 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-photos = UploadSet('photos', IMAGES)
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
+photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'label_img'
 configure_uploads(app, photos)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods = ['GET','POST'])
 def login():
@@ -28,25 +33,41 @@ def login():
         password = request.form['password']
         session['user_id'] = request.form['user_id']
         return redirect(url_for('home'))
+
     return render_template('login.html')
 
 @app.route('/home', methods = ['GET'])
 def home():
-    return render_template("homepage.html",username=session['username'])
+    if(session.get('user_id')):
+        return render_template("homepage.html",user_id=session['user_id'])
+    return redirect(url_for('login'))
 
 @app.route('/image', methods = ['GET','POST'])
 def image():
-    return render_template('upload.html')
+    if(session.get('user_id')):
+        return render_template('upload.html')
+    return redirect(url_for('login'))
 
 @app.route('/image/image_upload', methods=['GET','POST'])
 def upload():
-    if request.method == 'POST' and 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        date = request.form['date']
-        [classification, probabilities] = controller.labeling("label_img/" + filename)
-        return render_template('results.html',classification=classification,probabilities=probabilities)
+    if(session['user_id']):
+        if request.method == 'POST' and 'photo' in request.files:
+            # Checks to see if the file is null
+            if request.files['photo'].filename == '' or request.form['firstname']== '' or request.form['lastname']=='' or request.form['date']=='':
+                flash('Invalid Parameters')
+                return redirect(request.url)
+            # Checks for Allowed Files
+            if allowed_file(request.files['photo'].filename):
+                filename = photos.save(request.files['photo'])
+                firstname = request.form['firstname']
+                lastname = request.form['lastname']
+                date = request.form['date']
+                [classification, probabilities] = controller.labeling("label_img/" + filename)
+                unique_id = controller.store_image("label_img/"+filename, firstname, lastname)
+                return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id)
+            return redirect(url_for('image'))
+        return redirect(url_for('image'))
+    return redirect(url_for('login'))
 
 @app.route('/image_base64', methods=['POST'])
 def image_data():
@@ -76,7 +97,6 @@ def image_index(image_index):
 
 @app.route('/patients', methods = ['GET'])
 def patients():
-
     return
 
 @app.route('/logout', methods=['GET'])
