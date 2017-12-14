@@ -52,7 +52,7 @@ def store_image(
 def get_patient(patient_name):
     patient = databaseUser.User()
     patient_dict = patient.get_user_by_name()
-
+    return patient_dict
 
 def get_patients(doctor_id):
     doctor = databaseDoctor.Doctor()
