@@ -64,7 +64,7 @@ def upload():
                 date = request.form['date']
                 [classification, probabilities] = controller.labeling("label_img/" + filename)
                 unique_id = controller.store_image("label_img/"+filename, firstname, lastname, classification, date)
-                return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id)
+                return render_template('results.html',filename=filename,classification=classification,probabilities=probabilities,unique_id=unique_id)
             return redirect(url_for('image'))
         return redirect(url_for('image'))
     return redirect(url_for('login'))
@@ -94,6 +94,10 @@ def image_index(image_index):
     """
 
     return image_index
+
+@app.route('/image_data')
+def image_data():
+    return render_template('image_Data.html')
 
 @app.route('/patients', methods = ['GET'])
 def patients():

@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
 <link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 
-<div class="bgimg"><font color="white">
-  <div>
-      <h1 align="center">RESULTS</h1>
-      <hr style="margin:auto;width:40%">
-      <p align="center">DATA</p>
-       <div id="mySidenav" class="sidenav">
+  <div class="bgimg"><font color="white">
+    <div><center>
+        <h1 align="center">IMAGES</h1>
+        <hr style="margin:auto;width:40%">
+        <p align="center">ALL PATIENTS</p>
+        </center>
+    </div>
+    <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="/home">HOME</a>
       <a href="/image">UPLOAD</a>
@@ -18,23 +20,10 @@
       <a href="/patients">PATIENTS</a>
           <a href="/logout">LOGOUT</a>
     </div>
-    <div>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
-    </div>
-    </div>
-      <div><font color="white"><center>
-          <div><br><br>
-              <img src="../label_img/{{filename}}" alt="../label_img/{{filename}}"><br><br>
-          CLASSIFICATION: {{classification}}
-          </div>
-          <div><br><br>
-          PERCENTAGE: {{probabilities}}
-          </div>
-          <div> <object><br><br>
-          ID: {{ unique_id }}
-          </object> </div>
-      </center></font></div>
-    </font>
+<div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
+</div>
+      </font>
   </div>
 <script>
 function openNav() {
