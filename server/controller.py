@@ -51,7 +51,7 @@ def store_image(
 
 def get_patient(unique_id):
     patient = databaseUser.User()
-    patient_dict = patient.get_user_by_unique_ID(unique_id)
+    patient_dict = patient.get_user_by_unique_ID(int(unique_id))
     return patient_dict
 
 def get_patients(doctor_id):
