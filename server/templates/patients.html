@@ -2,15 +2,14 @@
 <html>
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
 <link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 
   <div class="bgimg"><font color="white">
     <div><center>
-        <h1 align="center">IMAGES</h1>
+        <h1 align="center">PATIENTS</h1>
         <hr style="margin:auto;width:40%">
-        <p align="center">ALL PATIENTS</p>
+        <p align="center">YOUR PATIENTS</p>
         </center>
     </div>
     <div id="mySidenav" class="sidenav">
@@ -26,16 +25,8 @@
 </div>
       <div class="w3-content w3-display-container">
             {% for patient in patients %}
-            <div class="w3-display-container mySlides">
-                <img src="../static/{{ patient.image_content }}" width="100%">
-                  <div class="w3-display-bottomleft w3-container w3-padding-16 w3-black">
-                      {{patient.name}}
-                  </div>
-            </div>
+                <a href="/patient/{{patient.name}}">patient.name</a> <br><br>
             {% endfor %}
-
-      <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-      <button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
       </div></font>
   </div>
 <script>
@@ -47,24 +38,6 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
-}
-
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-    showDivs(slideIndex += n);
-}
-
-function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length} ;
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-    }
-    x[slideIndex-1].style.display = "block";
 }
 </script>
 </body>
