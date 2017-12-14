@@ -1,34 +1,37 @@
 import sys
+import os
 import json
 import controller
 import numpy as np
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session, redirect, url_for
+from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 # app = Flask(__name__)
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 photos = UploadSet('photos', IMAGES)
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'label_img'
 configure_uploads(app, photos)
 
-@app.route('/')
+@app.route('/', methods = ['GET','POST'])
 def login():
     """Template for home of webpage
 
        :rtype: home template on html
     """
-
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        print(request.form['username'])
+        print(request.form['password'])
+        return redirect(url_for('home'))
     return render_template('login.html')
 
-@app.route('/login_verification', methods= ['GET','POST'])
-def login_verification():
-    username = request.form['username']
-    password = request.form['password']
-    print(username)
-    print(password)
-    return json.dumps(password)
+@app.route('/home')
+def home():
+    return render_template('homepage.html')
 
 @app.route('/image', methods = ['GET','POST'])
 def image():
@@ -46,11 +49,6 @@ def upload():
         print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
         return classification
-
-
-@app.route('/home', methods = ['GET'])
-def home():
-    return render_template('homepage.html')
 
 @app.route('/image_data', methods=['POST'])
 def image_data():
@@ -78,6 +76,12 @@ def image_index(image_index):
 
     return image_index
 
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
