@@ -113,36 +113,30 @@ def image_data():
     if(request.is_json):
         content = request.get_json()
         print(content)
-    index = controller.store_image(content)
-    print(index)
+        index = controller.store_image(content)
     return json.dumps(index)
-
-
-@app.route('/image/<image_index>', methods=['GET'])
-def image_index(image_index):
-    """Returns the classification and index of a specfic image
-
-       :param image_index: image of the index
-       :rtype: the index image
-       Daniel pls help
-    """
-
-    return image_index
-
 
 @app.route('/image_data')
 def images_data():
     if (session.get('user_id')):
-        print(session['user_id'])
-        patients = controller.get_images(session['user_id'])
+        patients = controller.get_patients(session['user_id'])
         return render_template('image_data.html', patients=patients)
     return redirect(url_for('login'))
 
 
 @app.route('/patients', methods=['GET'])
 def patients():
-    return
+    if (session.get('user_id')):
+        patients = controller.get_patients(session['user_id'])
+        return render_template('image_data.html', patients=patients)
+    return redirect(url_for('login'))
 
+@app.route('/patients/<patient_name>', methods= ['GET'])
+def patient(patient_name):
+    if (session.get('user_id')):
+        patient = controller.get_patient(patient_name)
+        return render_template('image_data.html', patient=patient)
+    return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET'])
 def logout():
