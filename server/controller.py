@@ -29,10 +29,23 @@ def store_image(doctor_id, filename, first_name, last_name, classification, date
         width, height = img.size
     [user_id, password] = userid_password_generator()
     fullname = first_name + " " + last_name
-    unique_id = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
-    databaseDoctor.mongo_add_patient_names(doctor_id,unique_id)
+    user = databaseUser.User()
+    doctor = databaseDoctor.Doctor()
+    unique_id = user.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
+    doctor.add_patient_names(unique_id,doctor_id)
 
     return unique_id, user_id, password
+
+def get_images(doctor_id):
+    doctor= databaseDoctor.Doctor()
+    patient_names = doctor.get_patient_names(doctor_id)
+    for p in range(len(patient_names)):
+        patient = databaseUser.User()
+        patient_dict = patient.get_user_by_unique_ID(patient_names[p])
+        decode_image(patient_dict,"")
+
+def flush_images():
+    return
 
 def convert_image(filename):
     """Function to convert the image
@@ -46,14 +59,14 @@ def convert_image(filename):
     # print(image_64_encode)
     return image_64_encode
 
-def decode_image(image_64_encode):
+def decode_image(image_64_encode,filename):
     """Function to decode the image
 
        :param image_64_encode: the encoded image
     """
 
     image_decoded = base64.decodestring(image_64_encode)
-    image_results = open('labeled_image.jpg','wb')
+    image_results = open(filename,'wb')
     image_results.write(image_decoded)
 
 def userid_password_generator():
@@ -127,5 +140,4 @@ if __name__ == '__main__':
     # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")
-    var = 'ilikebunnies'
-    store_image(var)
+    get_images('ilikebunnies')

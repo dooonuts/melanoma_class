@@ -29,19 +29,23 @@ class Doctor(MongoModel):
 
         doctor = Doctor(patients, name, user_id, password).save()
 
-    def add_patient_names(self,patients, user_id):
+    def add_patient_names(self,patients, doctor_id):
         """Function to add patients to the doctor
 
             :param patients: list of patients to add to doctor
             :param name: Name of doctor
             :rtype: None
         """
-        print(user_id)
-        doctor = Doctor.objects.get({'user_id':user_id})
+        doctor = Doctor.objects.get({'user_id':doctor_id})
         list_names = doctor.patient_names
-        list_names.extend(patients)
+        list_names.extend([patients])
         doctor.patient_names = list_names
         doctor.save()
+
+    def get_patient_names(self, doctor_id):
+        doctor = Doctor.objects.get({'user_id':doctor_id})
+        list_names = doctor.patient_names
+        return list_names
 
     def delete_patient_names(self, patients, name):
         """Function to delete patient name from doctor list
