@@ -46,7 +46,7 @@ def upload():
         print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
 
-        return classification
+        return render_template('results.html')
 
 @app.route('/home', methods = ['GET'])
 def home():
@@ -77,12 +77,6 @@ def image_index(image_index):
     """
 
     return image_index
-
-
-@app.route('/results')
-def results():
-
-    return render_template('results.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
