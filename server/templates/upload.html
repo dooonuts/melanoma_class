@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
+<link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+
+<div class="bgimg"><font color="white">
+  <div>
+      <h1 align="center">UPLOAD PHOTOS</h1>
+    <hr style="margin:auto;width:40%">
+      <p align="center">FILL OUT BELOW</p>
+      <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/home">HOME</a>
+      <a href="/image">UPLOAD</a>
+      <a href="/image_data">IMAGES</a>
+      <a href="/patients">PATIENTS</a>
+          <a href="/logout">LOGOUT</a>
+    </div>
+    <div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
+    </div>
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}"><center>
+    FIRST NAME:
+    <font color="black"><input type=text name=firstname></font><br><br>
+    LAST NAME :
+    <font color="black"><input type=text name=lastname></font><br><br>
+    DATE TAKEN:
+    <font color="black"><input type=date name=date></font><br><br>
+    <input type=file name=photo><br><br><font color="black">
+    <input type="submit" value="SUBMIT"></font>
+</center></form>
+  </div>
+    </font>
+</div>
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+</body>
+</html>

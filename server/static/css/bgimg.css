@@ -1,0 +1,10 @@
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('https://wallpaperscraft.com/image/calm_sea_houses_beach_malaysia_82812_1920x1080.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+</style>
