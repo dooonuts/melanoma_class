@@ -20,7 +20,17 @@
     </div>
     <div>
   <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
-    </div>
+    </div><center>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      {% endwith %}
+  </center>
 <form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}"><center>
     FIRST NAME:
     <font color="black"><input type=text name=firstname></font><br><br>
