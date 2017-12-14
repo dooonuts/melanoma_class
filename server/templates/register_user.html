@@ -14,10 +14,12 @@
   <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
     </div>
 <form method=POST enctype=multipart/form-data action="{{ url_for('register_user') }}"><center>
+    DOCTOR NAME:
+    <font color="black"><input type=text name=doctor_name></font><br><br>
     USER ID:
-    <font color="black"><input type=text name=firstname></font><br><br>
+    <font color="black"><input type=text name=user_id></font><br><br>
     PASSWORD:
-    <font color="black"><input type=text name=lastname></font><br><br><font color="black">
+    <font color="black"><input type=text name=password></font><br><br><font color="black">
     <input type="submit" value="SUBMIT"></font>
 </center></form>
   </div>
