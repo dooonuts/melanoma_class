@@ -23,6 +23,16 @@ class User(MongoModel):
     image_content  = fields.CharField()
     unique_id      = fields.IntegerField()
 
+class Doctor(MongoModel):
+    """Model for doctor to show in database
+
+       Based off of the Mongo Model
+
+    """
+    patient_names = fields.ListField()
+    doctor_name   = fields.CharField()
+
+
 def insert(content, patient_name, user_id, password, dimension1, dimension2, prob):
     """Function to allow the user to import photo for the database
 
@@ -91,6 +101,12 @@ def ret_data(unique_id):
                  'dimension2':user.dimension2, 'classification':user.classification}
      return ret_dict
 
-#if __name__ == '__main__':
+def add_doctor(patients, name):
+     doctor = Doctor(patients, name).save()
+
+
+if __name__ == '__main__':
 #    insert(12345, 'Daniel Wu', 'dwu', 'ilikebunnies', '1200', '1080', '0.95')
 #    change_params('Daniel Wu', 'user id', 'dwu<3')
+    add_doctor(['Daniel', 'Sam', 'Brianna'], 'Palmeri')
+
