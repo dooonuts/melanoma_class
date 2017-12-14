@@ -100,6 +100,10 @@ def image_index(image_index):
 
     return image_index
 
+@app.route('/image_data')
+def images_Data():
+    return render_template('image_Data.html')
+
 @app.route('/patients', methods = ['GET'])
 def patients():
     return
