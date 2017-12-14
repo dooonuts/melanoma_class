@@ -22,15 +22,7 @@ class User(MongoModel):
     classification = fields.FloatField()
     image_content  = fields.CharField()
     unique_id      = fields.IntegerField()
-
-class Doctor(MongoModel):
-    """Model for doctor to show in database
-
-       Based off of the Mongo Model
-
-    """
-    patient_names = fields.ListField()
-    doctor_name   = fields.CharField()
+    date           = fields.DateTimeField()
 
 
 def insert(content, patient_name, user_id, password, dimension1, dimension2, prob):
@@ -51,7 +43,7 @@ def insert(content, patient_name, user_id, password, dimension1, dimension2, pro
 
     unique_id = ''.join(random.choice(string.digits) for _ in range(12))
     user = User(patient_name, user_id, password, dimension1, dimension2, prob, \
-         content, unique_id)
+         content, unique_id, datetime.utcnow())
     user.save()
     return user.unique_id 
 
@@ -88,7 +80,7 @@ def change_params(name, param, value):
         user.dimension2 = value
         user.save()
 
-def ret_uniqueid(unique_id):
+def get_user_by_unique_ID(unique_id):
      """Function to print out the data after giving unique id
 
         :param unique_id(int): the unique digit for each entry
@@ -98,13 +90,12 @@ def ret_uniqueid(unique_id):
      user = User.objects.get({'unique_id':unique_id})
      ret_dict = {'name':user.patient_name, 'user_id':user.user_id, \
                  'password':user.password, 'dimension1':user.dimension1, \
-                 'dimension2':user.dimension2, 'classification':user.classification}
+                 'dimension2':user.dimension2, 'classification':user.classification, \
+                 'image_content':user.image_content, 'date/time':user.date}
      return ret_dict
 
-def add_doctor(patients, name):
-     doctor = Doctor(patients, name).save()
 
-def getUserByUserID(user_id):
+def get_user_by_user_ID(user_id):
     """Function to get the user by giving the user id
 
         :param user_id(string): the user_id for each entry
@@ -112,12 +103,13 @@ def getUserByUserID(user_id):
     """
 
     user = User.objects.get({'user_id':user_id})
-    ret_dict = {'name': user.patient_name, 'user_id': user.user_id, \
+    ret_dict = {'name': user.patient_name, 'unique_id': user.unique_id, \
                 'password': user.password, 'dimension1': user.dimension1, \
-                'dimension2': user.dimension2, 'classification': user.classification}
+                'dimension2': user.dimension2, 'classification': user.classification, \
+                'image_content':user.image_content, 'date/time':user.date}
     return ret_dict
 
 if __name__ == '__main__':
 #    insert(12345, 'Daniel Wu', 'dwu', 'ilikebunnies', '1200', '1080', '0.95')
 #    change_params('Daniel Wu', 'user id', 'dwu<3')
-    getUserByUserID("dwu<3")
+    get_user_by_user_ID("dwu<3")
