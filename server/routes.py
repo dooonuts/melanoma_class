@@ -65,7 +65,7 @@ def upload():
                 date = request.form['date']
                 [classification, probabilities] = controller.labeling("label_img/" + filename)
                 [unique_id, patient_id, patient_password] = controller.store_image(user_id, "label_img/"+filename, firstname, lastname, classification, date)
-                return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id, patient_id=patient_id, patient_password= patient_password)
+                return render_template('results.html',filename="../label_img/"+filename,classification=classification,probabilities=probabilities,unique_id=unique_id, patient_id=patient_id, patient_password= patient_password)
             return redirect(url_for('image'))
         return redirect(url_for('image'))
     return redirect(url_for('login'))
