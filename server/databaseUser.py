@@ -126,6 +126,7 @@ class User(MongoModel):
         user = User.objects.get({'unique_id': unique_id})
         ret_dict = {
             'name': user.patient_name,
+            'unique_id': user.unique_id,
             'user_id': user.user_id,
             'password': user.password,
             'dimension1': user.dimension1,
@@ -146,6 +147,7 @@ class User(MongoModel):
         ret_dict = {
             'name': user.patient_name,
             'unique_id': user.unique_id,
+            'user_id': user.user_id,
             'password': user.password,
             'dimension1': user.dimension1,
             'dimension2': user.dimension2,
