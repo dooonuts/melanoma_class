@@ -128,7 +128,7 @@ def images_data():
 def patients():
     if (session.get('user_id')):
         patients = controller.get_patients(session['user_id'])
-        return render_template('image_data.html', patients=patients)
+        return render_template('patients.html', patients=patients)
     return redirect(url_for('login'))
 
 @app.route('/patients/<patient_name>', methods= ['GET'])

@@ -23,11 +23,11 @@
 <div>
   <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
 </div>
-      <div class="w3-content w3-display-container">
+      <div class="w3-content w3-display-container"><center>
             {% for patient in patients %}
-                <a href="/patient/{{patient.name}}">patient.name</a> <br><br>
+                <font color="white"><a href="/patient/{{patient.unique_id}}">{{patient.name}}</a></font> <br><br>
             {% endfor %}
-      </div></font>
+      </center></div></font>
   </div>
 <script>
 function openNav() {
