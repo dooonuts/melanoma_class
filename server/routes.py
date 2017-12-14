@@ -50,6 +50,7 @@ def image():
 @app.route('/image/image_upload', methods=['GET','POST'])
 def upload():
     if(session.get('user_id')):
+        user_id = session['user_id']
         # Checks to see if posting and if the photo exists in the files
         if request.method == 'POST' and 'photo' in request.files:
             # Checks to see if the file is null
@@ -63,8 +64,8 @@ def upload():
                 lastname = request.form['lastname']
                 date = request.form['date']
                 [classification, probabilities] = controller.labeling("label_img/" + filename)
-                unique_id = controller.store_image("label_img/"+filename, firstname, lastname, classification, date)
-                return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id)
+                [unique_id, patient_id, patient_password] = controller.store_image(user_id, "label_img/"+filename, firstname, lastname, classification, date)
+                return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id, patient_id=patient_id, patient_password= patient_password)
             return redirect(url_for('image'))
         return redirect(url_for('image'))
     return redirect(url_for('login'))

@@ -1,15 +1,18 @@
 import databaseUser
 import string
-# import databaseDoctor
+import databaseDoctor
 import numpy as np
 import time
 import base64
 from random import *
 import tensorflow as tf
 from PIL import Image
+from pymongo import MongoClient
+from pymodm import MongoModel, fields, connect
 from tensorflow_for_poets.scripts import label_image
 
-def store_image(filename, first_name, last_name, classification, date):
+def store_image(doctor_id):
+# def store_image(doctor_id, filename, first_name, last_name, classification, date):
     """Function to store image for a specific patient, returns a specific username and password for the patient
         NOTE: Currently only accepts one patient per image, duplicate images for the
         same patient will be stored as separate entities
@@ -20,13 +23,17 @@ def store_image(filename, first_name, last_name, classification, date):
     print("Storing Image")
     width = None
     height = None
-    image_64_encoded= convert_image(filename)
-    with Image.open(filename) as img:
-        width, height = img.size
-    [user_id, password] = userid_password_generator()
-    fullname = first_name + " " + last_name
-    image_index = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
-    return image_index
+    #image_64_encoded= convert_image(filename)
+    #with Image.open(filename) as img:
+    #     width, height = img.size
+    # [user_id, password] = userid_password_generator()
+    # fullname = first_name + " " + last_name
+    # unique_id = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
+    someUser = databaseUser.User()
+    someDoctor = databaseDoctor.Doctor()
+    databaseDoctor.add_patient_names([111231], 'ilikebunnies')
+
+    return doctor_id
 
 def convert_image(filename):
     """Function to convert the image
@@ -118,7 +125,8 @@ def labeling(file_name):
 
 if __name__ == '__main__':
     # converted_image = convert_image("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
-    [user_id, password]=userid_password_generator()
+    # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")
-
+    var = 'ilikebunnies'
+    store_image(var)

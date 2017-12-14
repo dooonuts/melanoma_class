@@ -17,46 +17,47 @@ class Doctor(MongoModel):
     user_id       = fields.CharField()
     password      = fields.CharField()
 
-def add_doctor(patients, name, user_id, password):
-    """Function to add a doctor to the database
+    def add_doctor(patients, name, user_id, password):
+        """Function to add a doctor to the database
 
-       :param patients: list of patients the doctor has
-       :param name: Name of doctor
-       :param user_id: User id of the doctor
-       :param password: password of the doctor
-       :rtype: none
-    """
+           :param patients: list of patients the doctor has
+            :param name: Name of doctor
+           :param user_id: User id of the doctor
+            :param password: password of the doctor
+            :rtype: none
+        """
 
-    doctor = Doctor(patients, name, user_id, password).save()
+        doctor = Doctor(patients, name, user_id, password).save()
 
-def add_patient_names(patients, name):
-    """Function to add patients to the doctor
+    def add_patient_names(self, patients, user_id):
+        """Function to add patients to the doctor
 
-       :param patients: list of patients to add to doctor
-       :param name: Name of doctor
-       :rtype: None
-    """
+          :param patients: list of patients to add to doctor
+           :param name: Name of doctor
+           :rtype: None
+        """
+        print(user_id)
+        self.doctor = Doctor.objects.get({'user_id':user_id})
+        list_names = self.doctor.patient_names
+        list_names.extend(patients)
+        self.doctor.patient_names = list_names
+        self.doctor.save()
 
-    doctor = Doctor.objects.get({'doctor_name':name})
-    list_names = doctor.patient_names
-    list_names.extend(patients)
-    doctor.patient_names = list_names
-    doctor.save()
+    def delete_patient_names(patients, name):
+        """Function to delete patient name from doctor list
 
-def delete_patient_names(patients, name):
-    """Function to delete patient name from doctor list
+            :param patients: list of patients to delete
+            :param name: name of doctor
+            :rtype: None
+        """
 
-       :param patients: list of patients to delete
-       :param name: name of doctor
-       :rtype: None
-    """
-
-    doctor = Doctor.objects.get({'doctor_name':name})
-    old_list = doctor.patient_names 
-    new_list = [pat_name for pat_name in old_list if pat_name not in patients]
-    doctor.patient_names = new_list
-    doctor.save()
+        doctor = Doctor.objects.get({'doctor_name':name})
+        old_list = doctor.patient_names
+        new_list = [pat_name for pat_name in old_list if pat_name not in patients]
+        doctor.patient_names = new_list
+        doctor.save()
 
 if __name__ == '__main__':
-    delete_patient_names(['Brianna'], 'Arjun')
+    bessie= Doctor()
+    bessie.add_patient_names([123561790], 'ilikebunnies')
 
