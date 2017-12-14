@@ -20,12 +20,10 @@ def store_image(doctor_id, filename, first_name, last_name, classification, date
        :param content: the content of the imge to store
        :rtype: the image of the index
     """
-
-    print("Storing Image")
     width = None
     height = None
     # image_64_encoded= convert_image(filename)
-    with Image.open(filename) as img:
+    with Image.open("static/"+filename) as img:
         width, height = img.size
     [user_id, password] = userid_password_generator()
     fullname = first_name + " " + last_name
@@ -151,8 +149,8 @@ def labeling(file_name):
     return finallabel, results
 
 if __name__ == '__main__':
-    # print("Hello")
+    print(get_images("ilikebunnies"))
     # [user_id, password]=userid_password_generator()
     # [labels, results] = labeling("tensorflow_for_poets/tf_files/melanoma_photos/benign/ISIC_0010892.jpg")
     # [finallabel, results] = labeling("labeled_image.jpg")
-    check_users('ilikebunnies2','stuff')
+    # check_users('ilikebunnies2','stuff')

@@ -7,8 +7,6 @@ from flask import Flask, request, render_template, session, redirect, url_for, f
 from flask_session import Session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
-# app = Flask(__name__)
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -81,7 +79,7 @@ def upload():
                 lastname = request.form['lastname']
                 date = request.form['date']
                 [classification, probabilities] = controller.labeling("static/label_img/" + filename)
-                [unique_id, patient_id, patient_password] = controller.store_image(user_id, "static/label_img/"+filename, firstname, lastname, classification, date)
+                [unique_id, patient_id, patient_password] = controller.store_image(user_id, "label_img/"+filename, firstname, lastname, classification, date)
                 return render_template('results.html',filename="../static/label_img/"+filename,classification=classification,probabilities=probabilities,unique_id=unique_id, patient_id=patient_id, patient_password= patient_password)
             return redirect(url_for('image'))
         return redirect(url_for('image'))
@@ -115,8 +113,11 @@ def image_index(image_index):
 
 @app.route('/image_data')
 def images_data():
-
-    return render_template('image_data.html')
+    if (session.get('user_id')):
+        print(session['user_id'])
+        patients = controller.get_images(session['user_id'])
+        return render_template('image_data.html', patients= patients)
+    return redirect(url_for('login'))
 
 @app.route('/patients', methods = ['GET'])
 def patients():
