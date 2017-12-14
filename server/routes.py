@@ -135,7 +135,7 @@ def patients():
 def patient(unique_id):
     if (session.get('user_id')):
         patient = controller.get_patient(unique_id)
-        return render_template('image_data.html', patient=patient)
+        return render_template('patient.html', patient=patient)
     return redirect(url_for('login'))
 
 @app.route('/logout', methods=['GET'])

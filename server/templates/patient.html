@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
 <link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 
-<div class="bgimg"><font color="white">
-  <div>
-      <h1 align="center">RESULTS</h1>
-      <hr style="margin:auto;width:40%">
-      <p align="center">DATA</p>
-       <div id="mySidenav" class="sidenav">
+  <div class="bgimg"><font color="white">
+    <div><center>
+        <h1 align="center">PATIENTS</h1>
+        <hr style="margin:auto;width:40%">
+        <p align="center">INFORMATION</p>
+        </center>
+    </div>
+    <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="/home">HOME</a>
       <a href="/image">UPLOAD</a>
@@ -19,28 +21,17 @@
       <a href="/patients">PATIENTS</a>
           <a href="/logout">LOGOUT</a>
     </div>
-    <div>
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
-    </div>
-    </div>
-      <div class="w3-content w3-display-container"><font color="white"><center>
-          <img src="{{filename}}" alt="{{filename}}" width="100%"><br><br>
-          <div><br><br>
-          CLASSIFICATION: {{classification}}
-          </div>
-          <div><br><br>
-          PERCENTAGE: {{probabilities}}
-          </div>
-          <div> <br><br>
-          ID: {{ unique_id }}
-          </div>
-          <div> <br><br>
-          PATIENT_ID: {{ patient_id }} <br><br>
-          PATIENT_PASSWORD: {{ patient_password }}
-          </div>
-      </center></font></div>
+<div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
+
+    <div class="w3-content w3-display-container"><font color="white"><center>
+        PATIENT NAME: {{patient.name}} <br>
+        PATIENT ID: {{patient.user_id}} <br>
+        PATIENT PHOTO: <br>
+        <img src="../static/{{ patient.image_content }}" width="100%">
+    </center>
     </font>
-  </div>
+    </div>
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
