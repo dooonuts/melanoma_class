@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
 <link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -7,10 +7,10 @@
 
 <div class="bgimg">
   <div>
-      <h1 align="center"><font color="white">UPLOAD PHOTOS</font></h1>
-    <hr style="margin:auto;width:40%">
-      <p align="center"><font color="white">FILL OUT BELOW</font></p>
-      <div id="mySidenav" class="sidenav">
+      <h1 align="center"><font color="white">RESULTS</font></h1>
+      <hr style="margin:auto;width:40%">
+      <p align="center"><font color="white">DATA</font></p>
+       <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a href="/home">HOME</a>
       <a href="/image">UPLOAD</a>
@@ -19,20 +19,21 @@
         <a href="/">LOGOUT</a>
     </div>
     <div>
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776; open</font></span>
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776; open</font></span>
     </div>
-<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}"><center>
-    FIRST NAME:
-    <input type=text name=firstname><br><br>
-    LAST NAME :
-    <input type=text name=lastname><br><br>
-    DATE TAKEN:
-    <input type=date name=date><br><br>
-    <input type=file name=photo><br><br>
-    <input type="submit" value="SUBMIT">
-</center></form>
+    </div>
+      <div><font color="white"><center>
+          <div><br><br>
+          CLASSIFICATION:
+          </div>
+          <div><br><br>
+          PERCENTAGE:
+          </div>
+          <div> <object><br><br>
+          ID:
+          </object> </div>
+      </center></font></div>
   </div>
-</div>
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";

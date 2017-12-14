@@ -29,7 +29,7 @@ def login():
         return redirect(url_for('home'))
     return render_template('login.html')
 
-@app.route('/home')
+@app.route('/home', methods = ['GET'])
 def home():
     return render_template('homepage.html')
 
@@ -48,7 +48,7 @@ def upload():
         print(lastname)
         print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
-        return classification
+        return render_template('results.html')
 
 @app.route('/image_data', methods=['POST'])
 def image_data():
@@ -76,12 +76,15 @@ def image_index(image_index):
 
     return image_index
 
+<<<<<<< HEAD
 @app.route('/logout', methods=['GET'])
 def logout():
     session.pop('username',None)
     return redirect(url_for('login'))
 
 
+=======
+>>>>>>> 313bfa410015e601c8c1e62df4c94294934268a2
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
