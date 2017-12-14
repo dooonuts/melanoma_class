@@ -109,6 +109,6 @@ class User(MongoModel):
         return ret_dict
 
 if __name__ == '__main__':
+    print("hello")
 #    insert(12345, 'Daniel Wu', 'dwu', 'ilikebunnies', '1200', '1080', '0.95')
-#    change_params('Daniel Wu', 'user id', 'dwu<3')
-    get_user_by_user_ID("dwu<3")
+#    change_params('Daniel Wu', 'user id', 'dwu<3') get_user_by_user_ID("dwu<3")
