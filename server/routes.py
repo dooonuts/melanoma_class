@@ -33,7 +33,6 @@ def login():
         password = request.form['password']
         session['user_id'] = request.form['user_id']
         return redirect(url_for('home'))
-
     return render_template('login.html')
 
 @app.route('/home', methods = ['GET'])
@@ -50,7 +49,8 @@ def image():
 
 @app.route('/image/image_upload', methods=['GET','POST'])
 def upload():
-    if(session['user_id']):
+    if(session.get('user_id')):
+        # Checks to see if posting and if the photo exists in the files
         if request.method == 'POST' and 'photo' in request.files:
             # Checks to see if the file is null
             if request.files['photo'].filename == '' or request.form['firstname']== '' or request.form['lastname']=='' or request.form['date']=='':
@@ -63,7 +63,7 @@ def upload():
                 lastname = request.form['lastname']
                 date = request.form['date']
                 [classification, probabilities] = controller.labeling("label_img/" + filename)
-                unique_id = controller.store_image("label_img/"+filename, firstname, lastname)
+                unique_id = controller.store_image("label_img/"+filename, firstname, lastname, classification, date)
                 return render_template('results.html',classification=classification,probabilities=probabilities,unique_id=unique_id)
             return redirect(url_for('image'))
         return redirect(url_for('image'))

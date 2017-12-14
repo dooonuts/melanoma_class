@@ -19,13 +19,13 @@ class User(MongoModel):
     password       = fields.CharField()
     dimension1     = fields.IntegerField()
     dimension2     = fields.IntegerField()
-    classification = fields.FloatField()
+    classification = fields.CharField()
     image_content  = fields.CharField()
     unique_id      = fields.IntegerField()
     date           = fields.DateTimeField()
 
 
-def insert(content, patient_name, user_id, password, dimension1, dimension2, prob):
+def insert(content, patient_name, user_id, password, dimension1, dimension2, classfication, date):
     """Function to allow the user to import photo for the database
 
        Creates a user object for the database and assigns it a 
@@ -37,13 +37,13 @@ def insert(content, patient_name, user_id, password, dimension1, dimension2, pro
        :param password(char): password for the user
        :param dimension1(int): 1st dimension for photo
        :param dimension2(int): 2nd dimension for photo
-       :param prob(array): array of prob for the tensor flowi
+       :param classification(string): array of prob for the tensor flowi
        :rtype: the unique id of the user registered
     """
 
     unique_id = ''.join(random.choice(string.digits) for _ in range(12))
-    user = User(patient_name, user_id, password, dimension1, dimension2, prob, \
-         content, unique_id, datetime.utcnow())
+    user = User(patient_name, user_id, password, dimension1, dimension2, classfication, \
+         content, unique_id, date)
     user.save()
     return user.unique_id 
 

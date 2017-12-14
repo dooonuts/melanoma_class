@@ -9,7 +9,7 @@ import tensorflow as tf
 from PIL import Image
 from tensorflow_for_poets.scripts import label_image
 
-def store_image(filename, first_name, last_name):
+def store_image(filename, first_name, last_name, classification, date):
     """Function to store image for a specific patient, returns a specific username and password for the patient
         NOTE: Currently only accepts one patient per image, duplicate images for the
         same patient will be stored as separate entities
@@ -25,7 +25,7 @@ def store_image(filename, first_name, last_name):
         width, height = img.size
     [user_id, password] = userid_password_generator()
     fullname = first_name + " " + last_name
-    image_index = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height)
+    image_index = databaseUser.insert(image_64_encoded, fullname, user_id, password, width, height, classification, date)
     return image_index
 
 def convert_image(filename):
