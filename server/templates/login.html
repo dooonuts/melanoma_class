@@ -11,6 +11,15 @@
       <h1>MELANOMA DETECTION</h1>
     <hr style="margin:auto;width:40%">
       <p>LOGIN</p>
+      {% with messages = get_flashed_messages() %}
+         {% if messages %}
+            <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+            </ul>
+         {% endif %}
+      {% endwith %}
     <form action="" method=POST>
   		USER_ID:<br>
         <font color="black"><input type=text name=user_id><br></font>
