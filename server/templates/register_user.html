@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
+<link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<body>
+
+<div class="bgimg"><font color="white">
+  <div>
+      <h1 align="center">NEW USER</h1>
+    <hr style="margin:auto;width:40%">
+      <p align="center">REGISTER BELOW</p>
+    <div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776;</font></span>
+    </div>
+<form method=POST enctype=multipart/form-data action="{{ url_for('register_user') }}"><center>
+    USER ID:
+    <font color="black"><input type=text name=firstname></font><br><br>
+    PASSWORD:
+    <font color="black"><input type=text name=lastname></font><br><br><font color="black">
+    <input type="submit" value="SUBMIT"></font>
+</center></form>
+  </div>
+    </font>
+</div>
+</body>
+</html>

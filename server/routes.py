@@ -36,8 +36,13 @@ def login():
             session['user_id'] = request.form['user_id']
             return redirect(url_for('home'))
         else:
-            render_template('login.html')
+            redirect(request.url)
+            flash('Invalid Username or Password')
     return render_template('login.html')
+
+@app.route('/register_user')
+def register_user():
+    return render_template('register_user.html')
 
 @app.route('/home', methods = ['GET'])
 def home():

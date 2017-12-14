@@ -2,8 +2,6 @@
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <body>
 <div class="bgimg"><font color="white">
   <div><font color="white">
@@ -18,14 +16,11 @@
         <font color="black"><input type=text name=user_id><br></font>
  		PASSWORD:<br>
         <font color="black"><input type=password name=password></font><br><br><font color="black">
-    <input type="submit" value="SUBMIT"></font><br><br>
-        <div class="container">
-            <div class="alert alert-danger collapse alert-dismissable" id="loginfail">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Error!</strong> Incorrect user_id or password.
-            </div>
-        </div>
+    <input type="submit" value="SUBMIT"><br><br></font>
 	</form>
+      <form action="/register_user">
+          <font color="black"><input type="submit" value="NEW USER"></input></font>
+      </form>
   </center></div>
     </font>
 </div>
