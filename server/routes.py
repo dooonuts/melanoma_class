@@ -131,12 +131,14 @@ def patients():
         return render_template('patients.html', patients=patients)
     return redirect(url_for('login'))
 
+
 @app.route('/patients/<unique_id>', methods= ['GET'])
 def patient(unique_id):
     if (session.get('user_id')):
         patient = controller.get_patient(unique_id)
         return render_template('patient.html', patient=patient)
     return redirect(url_for('login'))
+
 
 @app.route('/logout', methods=['GET'])
 def logout():

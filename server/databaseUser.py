@@ -107,6 +107,7 @@ class User(MongoModel):
         user = User.objects.get({'patient_name': patient_name})
         ret_dict = {
             'name': user.patient_name,
+            'user_id': user.user_id,
             'unique_id': user.unique_id,
             'password': user.password,
             'dimension1': user.dimension1,
@@ -122,7 +123,7 @@ class User(MongoModel):
            :param unique_id(int): the unique digit for each entry
            :rtype: ret_dict the dictionary holding the info
         """
-
+        print(type(unique_id))
         user = User.objects.get({'unique_id': unique_id})
         ret_dict = {
             'name': user.patient_name,
