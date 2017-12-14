@@ -25,7 +25,7 @@
 </div>
       <div class="w3-content w3-display-container"><center>
             {% for patient in patients %}
-                <font color="white"><a href="/patient/{{patient.unique_id}}">{{patient.name}}</a></font> <br><br>
+                <a href="/patients/{{patient.unique_id}}"><font color="white">{{patient.name}}</font></a> <br><br>
             {% endfor %}
       </center></div></font>
   </div>
