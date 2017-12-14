@@ -45,8 +45,8 @@ def upload():
         print(lastname)
         print(date)
         [classification, probabilities] = controller.labeling("label_img/" + filename)
-        return classification
 
+        return classification
 
 @app.route('/home', methods = ['GET'])
 def home():

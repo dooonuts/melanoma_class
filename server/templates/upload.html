@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="../static/css/bgimg.css">
+<link rel="stylesheet" type="text/css" href="../static/css/homepage_sidemenu.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <body>
 
 <div class="bgimg">
-  <div><center>
+  <div>
       <h1 align="center"><font color="white">UPLOAD PHOTOS</font></h1>
     <hr style="margin:auto;width:40%">
       <p align="center"><font color="white">FILL OUT BELOW</font></p>
-<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+      <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/home">HOME</a>
+      <a href="/image">UPLOAD</a>
+      <a href="#">IMAGES</a>
+      <a href="#">PATIENTS</a>
+        <a href="/">LOGOUT</a>
+    </div>
+    <div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()"><font color="white">&#9776; open</font></span>
+    </div>
+<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}"><center>
     FIRST NAME:
     <input type=text name=firstname><br><br>
     LAST NAME :
@@ -18,6 +30,19 @@
     <input type=date name=date><br><br>
     <input type=file name=photo><br><br>
     <input type="submit" value="SUBMIT">
-</form>
-  </center></div></div></body>
+</center></form>
+  </div>
+</div>
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+</body>
 </html>
