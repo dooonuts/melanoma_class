@@ -116,6 +116,7 @@ def image_data():
         index = controller.store_image(content)
     return json.dumps(index)
 
+
 @app.route('/image_data')
 def images_data():
     if (session.get('user_id')):
@@ -132,7 +133,7 @@ def patients():
     return redirect(url_for('login'))
 
 
-@app.route('/patients/<unique_id>', methods= ['GET'])
+@app.route('/patients/<unique_id>', methods=['GET'])
 def patient(unique_id):
     if (session.get('user_id')):
         patient = controller.get_patient(unique_id)
