@@ -17,6 +17,12 @@ configure_uploads(app, photos)
 
 
 def allowed_file(filename):
+    """Function to check if file is allowed
+
+       :param filename: Name of file
+       :rtype: checked file
+    """
+
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -43,6 +49,12 @@ def login():
 
 @app.route('/register_user', methods=['GET', 'POST'])
 def register_user():
+    """Function to register user
+
+       :param none:
+       :rtype: the url for redirected user
+    """
+
     if request.method == 'GET':
         return render_template('register_user.html')
     if request.method == 'POST' and request.form['doctor_name'] == '' or request.form[
@@ -57,6 +69,12 @@ def register_user():
 
 @app.route('/home', methods=['GET'])
 def home():
+    """The home screen
+
+       :param none:
+       :rtype: login screen
+    """
+
     if(session.get('user_id')):
         return render_template("homepage.html", user_id=session['user_id'])
     return redirect(url_for('login'))
@@ -64,6 +82,12 @@ def home():
 
 @app.route('/image', methods=['GET', 'POST'])
 def image():
+    """The image screen
+
+       :param none:
+       :rtype: image screen
+    """
+
     if(session.get('user_id')):
         return render_template('upload.html')
     return redirect(url_for('login'))
@@ -71,6 +95,12 @@ def image():
 
 @app.route('/image/image_upload', methods=['GET', 'POST'])
 def upload():
+    """Function to upload image
+
+       :param none:
+       :rtype: screens for the frontend
+    """
+
     if(session.get('user_id')):
         user_id = session['user_id']
         # Checks to see if posting and if the photo exists in the files
@@ -119,6 +149,12 @@ def image_data():
 
 @app.route('/image_data')
 def images_data():
+    """Function for getting image data
+
+       :param none:
+       :rtype: redirected url page
+    """
+
     if (session.get('user_id')):
         patients = controller.get_patients(session['user_id'])
         return render_template('image_data.html', patients=patients)
@@ -127,6 +163,12 @@ def images_data():
 
 @app.route('/patients', methods=['GET'])
 def patients():
+    """Function for getting patients
+
+       :param none:
+       :rtype: redirected url page
+    """
+
     if (session.get('user_id')):
         patients = controller.get_patients(session['user_id'])
         return render_template('patients.html', patients=patients)
@@ -135,6 +177,12 @@ def patients():
 
 @app.route('/patients/<unique_id>', methods=['GET'])
 def patient(unique_id):
+    """Function for getting patient
+
+       :param unique_id: patients unique id
+       :rtype: redirected url page
+    """
+
     if (session.get('user_id')):
         patient = controller.get_patient(unique_id)
         return render_template('patient.html', patient=patient)
@@ -143,6 +191,13 @@ def patient(unique_id):
 
 @app.route('/logout', methods=['GET'])
 def logout():
+    """Function for logging out
+
+       :param none:
+       :rtype: redirected url page
+    """
+
+
     session.pop('user_id', None)
     return redirect(url_for('login'))
 

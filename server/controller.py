@@ -21,7 +21,8 @@ def store_image(
         last_name,
         classification,
         date):
-    """Function to store image for a specific patient, returns a specific username and password for the patient
+    """Function to store image for a specific patient
+       returns a specific username and password for the patient
         NOTE: Currently only accepts one patient per image, duplicate images for the
         same patient will be stored as separate entities
        :param content: the content of the imge to store
@@ -51,12 +52,24 @@ def store_image(
 
 
 def get_patient(unique_id):
+    """Function to get patients based on unique id
+
+       :param unique_id: the unique id for each patient
+       :rtype: a dictionary of everything about the patient
+    """
+
     patient = databaseUser.User()
     patient_dict = patient.get_user_by_unique_ID(int(unique_id))
     return patient_dict
 
 
 def get_patients(doctor_id):
+    """Function to get the patients a doctor has
+
+       :param doctor_id: unique id for the doctor
+       :rtype: dictionary containing the patient info
+    """
+
     doctor = databaseDoctor.Doctor()
     patient_names = doctor.get_patient_names(doctor_id)
     patient_dicts = []
@@ -68,6 +81,13 @@ def get_patients(doctor_id):
 
 
 def check_doctors(user_id, password):
+    """Check if the doctor is real doctor
+
+       :param user_id: the doctor userid
+       :param password: the password entered
+       :rtype: boolean if the doctor passed
+    """
+
     doctor = databaseDoctor.Doctor()
     try:
         doctor_info = doctor.get_doctor_by_doctor_id(user_id)
@@ -80,6 +100,14 @@ def check_doctors(user_id, password):
 
 
 def add_doctor(doctor_name, user_id, password):
+    """Function to add doctor to database
+
+       :param doctor_name: name of doctor
+       :param user_id: user id of the doctor
+       :param password: password of the doctor
+       :rtype: none
+    """
+
     doctor = databaseDoctor.Doctor()
     doctor.add_doctor(doctor_name, user_id, password)
     return
@@ -110,6 +138,12 @@ def decode_image(image_64_encode, filename):
 
 
 def userid_password_generator():
+    """Function to randomly generate password
+
+       :param None:
+       :rtype: user_id and password
+    """
+
     min_char = 8
     max_char = 12
     allchar = string.ascii_letters + string.digits
