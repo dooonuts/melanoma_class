@@ -13,6 +13,7 @@ Main Endpoints
   * All parameters must be complete to be stored in the database
 - Images
   * A slideshow of images that the doctor has uploaded will be displayed here
+  * The slideshow can be controlled by arrows on the sides of the image
   * The patient name will be displayed on the bottom right
 - Patients
   * A list of the doctor's patients will be displayed here
