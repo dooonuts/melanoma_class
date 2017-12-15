@@ -11,6 +11,7 @@ Main Endpoints
   * Stores the classification and the name in the database
   * Only accepts png, jpeg, or jpg files
   * All parameters must be complete to be stored in the database
+  * For percentages, the first refers to probability benign and the second, malignant
 - Images
   * A slideshow of images that the doctor has uploaded will be displayed here
   * The slideshow can be controlled by arrows on the sides of the image
