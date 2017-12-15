@@ -3,6 +3,7 @@
 This is a Doctor's Portal meant to classify and track their patient's skin conditions. There is a simple and intuitive UI for the doctor to use. 
 
 Features: Sessions, Login/Logout, Unique Identification, MongoDB, TensorFlow Classfication, Security
+URL: http://vcm-1841.vm.duke.edu:5000
 
 Main Endpoints
 - Home
